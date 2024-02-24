@@ -3,6 +3,7 @@
     font-weight: 400;
     font-style: normal;
     color: white;
+    box-sizing: border-box;
   }
   
   h1 {
@@ -11,7 +12,6 @@
 
 body {
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   background-color: rgb(31, 32, 32);
@@ -47,23 +47,27 @@ button {
   border: none;
 }
 
+button:active {
+  background-color: #ccc;
+}
+
 .gridSize {
   width: 200px;
   color: transparent;
 }
 
-.colorSelector {
+.colorPicker {
   width: 100px;
   height: 100px;
   border-radius: 100px;
 }
 
-.colorSelector::-webkit-color-swatch {
+.colorPicker::-webkit-color-swatch {
   border-radius: 50%;   
   border: 2px solid #ffffff;
   }
 
-  .colorSelector::-moz-color-swatch {
+  .colorPicker::-moz-color-swatch {
     border-radius: 50%;    
     border: 2px solid #ccc; /* Example border */
   }
@@ -97,6 +101,6 @@ button {
   }
 
 .gridElement {
-  background-color: white;
+  background-color: #ffffff;
   border: solid #ccc 1px;
 }

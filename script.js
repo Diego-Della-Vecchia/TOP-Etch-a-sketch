@@ -5,6 +5,8 @@ let currentGrid;
 
 let showGridSize = document.querySelector(".currentGrid");
 
+ let counter = 0; //how many times a grid has been created
+
 function updateGrid() {
 
     currentGrid = changeGridSize.value;
@@ -13,12 +15,24 @@ function updateGrid() {
 
     let gridElement;
 
+   
+    counter ++;
+    console.log(counter+" times");
+    let gridElementsList = document.querySelectorAll(".gridElement");
+
+    if (counter > 1) {
+        
+         grid.innerHTML = "";
+        
+    }
     for (let i = 0; i < currentGrid * currentGrid; i++) {
+        
         gridElement = document.createElement("div");
+        gridElement.style.width = 500 / currentGrid + "px";
+        gridElement.style.height = 500 / currentGrid + "px";
         gridElement.classList.add("gridElement");
-        gridElement.style.width = 100 / currentGrid + "%";
-        gridElement.style.height = 100 / currentGrid + "%";
         grid.appendChild(gridElement);
+        gridElement.addEventListener("click", changeColor)
     }
 }
 
@@ -26,4 +40,28 @@ updateGrid();
 
 changeGridSize.addEventListener('input', updateGrid);
 
-console.log("hello")
+let colorMode = document.querySelector(".colorMode");
+
+let rainbowMode = document.querySelector(".rainbowMode");
+
+let mode;
+
+colorMode.addEventListener("click", () => {
+    mode = "color"
+    colorMode.style.backgroundColor = "#ccc";
+});
+
+rainbowMode.addEventListener("click", () => {
+    mode = "rainbow"
+    
+    rainbowMode.style.backgroundColor = "#ccc";
+    console.log(mode);
+});
+
+
+let colorPicker = document.querySelector(".colorPicker");
+
+let color = colorPicker.value;
+
+
+function changeColor() {}
