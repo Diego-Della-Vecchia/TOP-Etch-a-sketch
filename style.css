@@ -104,3 +104,8 @@ button:active {
   background-color: #ffffff;
   border: solid #ccc 1px;
 }
+
+.colorMode, .hover{
+  background-color: #ccc;
+}
+

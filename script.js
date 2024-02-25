@@ -5,6 +5,10 @@ let currentGrid;
 
 let showGridSize = document.querySelector(".currentGrid");
 
+let colorPicker = document.querySelector(".colorPicker");
+
+let color;
+
  let counter = 0; //how many times a grid has been created
 
 function updateGrid() {
@@ -14,11 +18,8 @@ function updateGrid() {
     showGridSize.innerText = currentGrid + " x " + currentGrid;
 
     let gridElement;
-
-   
+  
     counter ++;
-    console.log(counter+" times");
-    let gridElementsList = document.querySelectorAll(".gridElement");
 
     if (counter > 1) {
         
@@ -32,7 +33,8 @@ function updateGrid() {
         gridElement.style.height = 500 / currentGrid + "px";
         gridElement.classList.add("gridElement");
         grid.appendChild(gridElement);
-        gridElement.addEventListener("click", changeColor)
+        gridElement.addEventListener("mousedown", changeColor)
+        gridElement.addEventListener("mouseover", changeColor)
     }
 }
 
@@ -44,24 +46,104 @@ let colorMode = document.querySelector(".colorMode");
 
 let rainbowMode = document.querySelector(".rainbowMode");
 
-let mode;
+let eraser = document.querySelector(".eraser");
+
+let hoverToggle = document.querySelector(".hover");
+
+let clear = document.querySelector(".clear");
+
+let gridElementsList = document.querySelectorAll(".gridElement");
+
+let mode = "color";
+
+let hover = true;
 
 colorMode.addEventListener("click", () => {
     mode = "color"
+    rainbowMode.style.backgroundColor = "#fff";
     colorMode.style.backgroundColor = "#ccc";
+    eraser.style.backgroundColor = "#fff";
 });
 
 rainbowMode.addEventListener("click", () => {
     mode = "rainbow"
     
+    colorMode.style.backgroundColor = "#fff";
     rainbowMode.style.backgroundColor = "#ccc";
-    console.log(mode);
+    eraser.style.backgroundColor = "#fff";
+    
 });
 
+eraser.addEventListener("click", () => {
 
-let colorPicker = document.querySelector(".colorPicker");
+    colorMode.style.backgroundColor = "#fff";
+    rainbowMode.style.backgroundColor = "#fff";
+    eraser.style.backgroundColor = "#ccc";
+    mode = "eraser"
+});
 
-let color = colorPicker.value;
+let i = 2;
+
+hoverToggle.addEventListener("click", () => {
+
+    if(i%2){
+        hoverToggle.style.backgroundColor = "#ccc";
+        hover = true;
+    }
+    else{
+        hoverToggle.style.backgroundColor = "#fff";
+        hover = false;
+    }
+    i++;
+    });
+
+clear.addEventListener("click", () => {
+    grid.innerHTML = ""; 
+    updateGrid();
+    });
 
 
-function changeColor() {}
+
+function changeColor(e) {
+    
+    if (hover == true) {
+      
+        color = colorPicker.value;
+        
+        if (mode == "color") {
+        e.target.style.backgroundColor = color;
+        }
+
+        else if (mode == "rainbow") {
+            e.target.style.backgroundColor = `rgb(${rainbow()}, ${rainbow()}, ${rainbow()})`;
+        }
+
+        else if (mode == "eraser") {
+            e.target.style.backgroundColor = "#fff";
+        }
+    }
+
+    if (hover == false && e.type == "mousedown") {
+        
+        color = colorPicker.value;
+        
+        if (mode == "color") {
+        e.target.style.backgroundColor = color;
+        }
+
+        else if (mode == "rainbow") {
+            e.target.style.backgroundColor = `rgb(${rainbow()}, ${rainbow()}, ${rainbow()})`;
+        }
+
+        else if (mode == "eraser") {
+            e.target.style.backgroundColor = "#fff";
+        }
+    }
+
+    
+}
+
+
+function rainbow() {
+   return Math.floor(Math.random() * 255) + 1;
+}
