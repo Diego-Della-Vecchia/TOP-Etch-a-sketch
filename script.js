@@ -48,15 +48,12 @@ let rainbowMode = document.querySelector(".rainbowMode");
 
 let eraser = document.querySelector(".eraser");
 
-let hoverToggle = document.querySelector(".hover");
-
 let clear = document.querySelector(".clear");
 
 let gridElementsList = document.querySelectorAll(".gridElement");
 
 let mode = "color";
 
-let hover = true;
 
 colorMode.addEventListener("click", () => {
     mode = "color"
@@ -82,20 +79,6 @@ eraser.addEventListener("click", () => {
     mode = "eraser"
 });
 
-let i = 2;
-
-hoverToggle.addEventListener("click", () => {
-
-    if(i%2){
-        hoverToggle.style.backgroundColor = "#ccc";
-        hover = true;
-    }
-    else{
-        hoverToggle.style.backgroundColor = "#fff";
-        hover = false;
-    }
-    i++;
-    });
 
 clear.addEventListener("click", () => {
     grid.innerHTML = ""; 
@@ -106,7 +89,6 @@ clear.addEventListener("click", () => {
 
 function changeColor(e) {
     
-    if (hover == true) {
       
         color = colorPicker.value;
         
@@ -120,30 +102,16 @@ function changeColor(e) {
 
         else if (mode == "eraser") {
             e.target.style.backgroundColor = "#fff";
-        }
-    }
-
-    if (hover == false && e.type == "mousedown") {
         
-        color = colorPicker.value;
-        
-        if (mode == "color") {
-        e.target.style.backgroundColor = color;
-        }
-
-        else if (mode == "rainbow") {
-            e.target.style.backgroundColor = `rgb(${rainbow()}, ${rainbow()}, ${rainbow()})`;
-        }
-
-        else if (mode == "eraser") {
-            e.target.style.backgroundColor = "#fff";
-        }
     }
-
-    
+   
 }
 
 
 function rainbow() {
    return Math.floor(Math.random() * 255) + 1;
+}
+
+function shader(e) {
+    console.log(e.target.getAtribute("backGroundColor"));
 }
